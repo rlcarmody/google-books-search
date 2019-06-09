@@ -1,0 +1,25 @@
+.card__button {
+  background: none; 
+  border: none; 
+  font-family: sans-serif; 
+  font-size: 1em;
+  color: #3273dc;
+}
+.card__button:hover {
+  color: black;
+  cursor: pointer;
+}
+
+.card__button:active {
+  outline: none;
+}
+
+.card__button:focus {
+  outline: none;
+}
+
+.card__button:disabled {
+  background-color: #ccc;
+  color: #eee;
+  cursor: default;
+}
