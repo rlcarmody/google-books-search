@@ -43,7 +43,7 @@ export default class Home extends Component {
             </div>
           </form>
         </div>
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr', gridGap: '5px' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr', gridGap: '10px' }}>
           {books
             && books.map(book => (
               <Card {...book} key={book.id} handleClick={this.saveBook} activeText="Save to List" disabledText="Saved" />

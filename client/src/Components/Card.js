@@ -27,7 +27,7 @@ const Card = (props) => {
               {title}
             </p>
             <p className="subtitle is-6">
-              {authors && `by ${[...authors]}`}
+              {authors && `by ${authors.join(', ')}`}
             </p>
           </div>
         </div>
