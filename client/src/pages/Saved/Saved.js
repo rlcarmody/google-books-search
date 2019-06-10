@@ -9,8 +9,17 @@ export default class Home extends Component {
   };
 
   componentDidMount() {
+    this.getBooks();
+  }
+
+  getBooks() {
     API.getSavedBooks()
       .then(data => this.setState({ books: data }));
+  }
+
+  deleteBook = ({ _id }) => {
+    API.deleteBook(_id)
+      .then(() => this.getBooks());
   }
 
   render() {
@@ -21,7 +30,8 @@ export default class Home extends Component {
         <div style={{ display: 'grid', gridTemplateColumns: '1fr', gridGap: '10px' }}>
           {books
             && books.map(book => (
-              <Card {...book} key={book.id} activeText="Remove From Saved" />
+              // eslint-disable-next-line no-underscore-dangle
+              <Card {...book} key={book._id} activeText="Remove From Saved" handleClick={this.deleteBook} />
             ))}
         </div>
       </div>

@@ -9,6 +9,11 @@ export default {
       body: JSON.stringify(book),
     }).then(response => response.json());
   },
+  deleteBook(id) {
+    return fetch(`/api/books/${id}`, {
+      method: 'DELETE',
+    }).then(response => response.json());
+  },
   getGoogleBooks(query) {
     return fetch(`https://www.googleapis.com/books/v1/volumes?q=${query}`)
       .then(response => response.json())

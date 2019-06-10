@@ -1,17 +1,16 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import './Card.css';
-import API from '../utils/API';
 
-const Card = ({
-  title, authors, description, link, image, _id, id,
-}) => {
-  const [isSaved, setSaved] = useState(false);
-  const saveToDB = () => {
-    API.saveToDB({
-      title, authors, description, image, link,
-    })
-      .then(() => setSaved(true));
+const Card = (props) => {
+  const {
+    title, authors, description, link, image, handleClick, activeText, disabledText,
+  } = props;
+  const [isDisabled, setDisabled] = useState(false);
+
+  const clickHandler = async () => {
+    await handleClick(props);
+    setDisabled(true);
   };
 
   return (
@@ -28,7 +27,7 @@ const Card = ({
               {title}
             </p>
             <p className="subtitle is-6">
-              {authors && `by ${[...authors]} ${_id || id}`}
+              {authors && `by ${[...authors]}`}
             </p>
           </div>
         </div>
@@ -40,8 +39,8 @@ const Card = ({
       </div>
       <footer className="card-footer">
         <a href={link} className="card-footer-item" target="_blank" rel="noopener noreferrer">View</a>
-        <button type="button" className="card-footer-item card__button" disabled={isSaved} onClick={() => saveToDB()}>
-          {isSaved ? 'Saved to DB' : 'Save'}
+        <button type="button" className="card-footer-item card__button" disabled={isDisabled} onClick={clickHandler}>
+          {isDisabled ? disabledText : activeText}
         </button>
       </footer>
     </div>
@@ -54,16 +53,17 @@ Card.propTypes = {
   description: PropTypes.string,
   link: PropTypes.string.isRequired,
   image: PropTypes.string,
-  id: PropTypes.string,
-  _id: PropTypes.string,
+  handleClick: PropTypes.func.isRequired,
+  activeText: PropTypes.string,
+  disabledText: PropTypes.string,
 };
 
 Card.defaultProps = {
   authors: [''],
   description: '',
   image: '',
-  id: '',
-  _id: '',
+  activeText: '',
+  disabledText: '',
 };
 
 export default Card;
