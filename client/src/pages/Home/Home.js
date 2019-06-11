@@ -7,6 +7,7 @@ export default class Home extends Component {
   state = {
     books: [],
     searchValue: '',
+    errorState: false,
   };
 
   handleInputChange = (event) => {
@@ -25,11 +26,12 @@ export default class Home extends Component {
     const { searchValue } = this.state;
     const query = encodeURI(searchValue);
     API.getGoogleBooks(query)
-      .then(response => this.setState({ books: response }));
+      .then(response => this.setState({ books: response, errorState: false }))
+      .catch(() => this.setState({ books: [], errorState: true }));
   };
 
   render() {
-    const { books } = this.state;
+    const { books, errorState } = this.state;
     return (
       <div>
         <Navbar />
@@ -48,6 +50,7 @@ export default class Home extends Component {
             && books.map(book => (
               <Card {...book} key={book.id} handleClick={this.saveBook} activeText="Save to List" disabledText="Saved" />
             ))}
+          {errorState && <p>No results found</p>}
         </div>
       </div>
     );

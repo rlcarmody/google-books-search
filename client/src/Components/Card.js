@@ -59,7 +59,7 @@ Card.propTypes = {
 };
 
 Card.defaultProps = {
-  authors: [''],
+  authors: '',
   description: '',
   image: '',
   activeText: '',
